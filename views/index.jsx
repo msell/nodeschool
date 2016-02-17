@@ -30,16 +30,24 @@ import React from 'react';
     class Todo extends React.Component {
         constructor(props) {
             super(props);
-            this.state = {checked: false};
+            this.state = {
+                checked: false,
+                rowStyle: style.notCheckedTodo
+                }
+                this.handleChange = this.handleChange.bind(this);
         }
 
         handleChange(e) {
-            this.setState({checked: e.target.checked});
+            this.setState({
+                checked: e.target.checked,
+                rowStyle: e.target.checked ? style.checkedTodo : style.notCheckedTodo
+                
+                });
         } 
         
         render() {
             return (
-                <tr>
+                <tr style={this.state.rowStyle}>
                     <td style={style.tableContent}>
                         <input type="checkbox" checked={this.state.checked} onChange={this.handleChange}/>
                     </td>
@@ -64,6 +72,12 @@ import React from 'react';
     }
     
     let style = {
+        checkedTodo: {
+            textDecoration: "line-through"
+        },
+        notCheckedTodo: {
+            textDecoration: "none"
+        },
         tableContent: {
             border: "1px solid black"
         }
